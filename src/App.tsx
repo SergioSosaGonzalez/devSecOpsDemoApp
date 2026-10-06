@@ -6,7 +6,7 @@ function App() {
 
   return (
     <section id="center">
-      <h1>Contador</h1>
+      <h1>Contador by sergio sosa</h1>
       <button
         type="button"
         className="counter"
