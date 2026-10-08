@@ -74,6 +74,9 @@ jobs:
     name: DAST (OWASP ZAP)
     needs: build-and-deploy
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
     steps:
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.12.0
