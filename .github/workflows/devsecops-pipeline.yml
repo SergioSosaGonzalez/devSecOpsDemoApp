@@ -83,3 +83,4 @@ jobs:
         with:
           target: ${{ steps.deployment.outputs.page_url }} # Tu URL desplegada
           artifact_name: 'zap-scan'
+          cmd_options: '-I'
