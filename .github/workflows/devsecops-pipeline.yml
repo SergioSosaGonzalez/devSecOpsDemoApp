@@ -81,4 +81,5 @@ jobs:
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.12.0
         with:
-          target: 'https://sergiososagonzalez.github.io/devSecOpsDemoApp/' # Tu URL desplegada
+          target: ${{ steps.deployment.outputs.page_url }} # Tu URL desplegada
+          artifact_name: 'zap-scan'
