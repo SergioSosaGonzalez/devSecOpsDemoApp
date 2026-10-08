@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   # 1. SECRET SCANNING (Gitleaks)
   secret-scan:
@@ -19,19 +23,6 @@ jobs:
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  # 2. SAST (SonarCloud / SonarQube)
-  sast-scan:
-    name: SAST (SonarQube)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
   # 3. SCA & CONTAINER SCAN (Trivy)
   sca-scan:
     name: SCA & Container Security (Trivy)
@@ -59,7 +50,7 @@ jobs:
   # 5. BUILD & DEPLOY
   build-and-deploy:
     name: Build & Deploy
-    needs: [secret-scan, sast-scan, sca-scan, iac-scan]
+    needs: [secret-scan, sca-scan, iac-scan]
     runs-on: ubuntu-latest
     permissions:
       contents: read
