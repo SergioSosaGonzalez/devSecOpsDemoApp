@@ -1,0 +1,11 @@
+#!/bin/sh
+echo "🔒 Ejecutando controles de seguridad pre-commit (Gitleaks)..."
+
+# Ejecuta gitleaks de forma local sobre los cambios en staging
+gitleaks protect --staged --verbose
+
+if [ $? -ne 0 ]; then
+  echo "❌ ERROR DE SEGURIDAD: Se detectaron secretos en tu código."
+  echo "Por favor remueve la credencial/token antes de hacer commit."
+  exit 1
+fi
